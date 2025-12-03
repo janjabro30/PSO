@@ -1,0 +1,10 @@
+<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="100" fill="#0d9488"/>
+  <path d="M 100 20 L 120 50 L 100 45 L 80 50 Z" fill="#f97316"/>
+  <text x="100" y="75" text-anchor="middle" font-size="24" fill="white" font-family="Arial, sans-serif" font-weight="bold">
+    PSO
+  </text>
+  <text x="100" y="92" text-anchor="middle" font-size="10" fill="white" font-family="Arial, sans-serif">
+    REGNSKAP AS
+  </text>
+</svg>
