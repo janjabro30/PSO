@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
+import type { Settings } from "@/lib/types"
 
 const navLinks = [
   { href: "/", label: "HJEM" },
@@ -15,6 +16,17 @@ const navLinks = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [settings, setSettings] = useState<Settings | null>(null)
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(console.error);
+  }, []);
+
+  const logoUrl = settings?.company?.logoUrl || "/images/pso-logo.svg";
+  const companyName = settings?.company?.name || "PSO Regnskap AS";
 
   return (
     <nav className="bg-white shadow-md fixed w-full top-0 z-50">
@@ -22,8 +34,8 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-20">
           <Link href="/" className="flex items-center">
             <Image
-              src="/images/pso-logo.svg"
-              alt="PSO Regnskap AS"
+              src={logoUrl}
+              alt={companyName}
               width={120}
               height={60}
               className="h-12 w-auto"
@@ -46,22 +58,23 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-dark"
+            className="md:hidden text-dark p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            aria-label={isOpen ? "Lukk meny" : "Åpne meny"}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Full Screen Overlay */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t">
-          <div className="px-4 pt-2 pb-4 space-y-2">
+        <div className="md:hidden fixed inset-0 top-20 z-50 bg-white">
+          <div className="px-4 py-6 space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block py-2 text-dark hover:text-primary font-medium"
+                className="block py-4 px-4 text-lg text-dark hover:text-primary hover:bg-gray-50 font-medium rounded-lg transition-colors min-h-[44px] flex items-center"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
