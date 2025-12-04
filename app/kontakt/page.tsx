@@ -1,29 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
-
-const offices = [
-  {
-    name: "Spydeberg",
-    address: "Wilses vei 3, 1820 Spydeberg",
-    phone: "46 91 19 11",
-    email: "post@psoregnskap.no",
-    hours: "Man-Fre: 08:00-16:00",
-  },
-  {
-    name: "Oslo",
-    address: "Brynsveien 18, 0667 Oslo",
-    phone: "46 91 19 11",
-    email: "post@psoregnskap.no",
-    hours: "Man-Fre: 08:00-16:00",
-  },
-]
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react"
+import { motion } from "framer-motion"
+import { Office } from "@/lib/types"
 
 export default function KontaktPage() {
+  const [offices, setOffices] = useState<Office[]>([])
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,6 +17,20 @@ export default function KontaktPage() {
     company: "",
     message: "",
   })
+  const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    const loadOffices = async () => {
+      try {
+        const res = await fetch("/lib/data/offices.json")
+        const data = await res.json()
+        setOffices(data)
+      } catch (error) {
+        console.error("Failed to load offices:", error)
+      }
+    }
+    loadOffices()
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -42,53 +42,73 @@ export default function KontaktPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Form submission logic would go here
-    alert("Takk for din henvendelse! Vi tar kontakt så snart som mulig.")
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      message: "",
-    })
+    setSubmitted(true)
+    setTimeout(() => {
+      setSubmitted(false)
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        message: "",
+      })
+    }, 3000)
   }
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-6">Kontakt Oss</h1>
-          <p className="text-xl max-w-3xl mx-auto">
+      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-6xl font-bold mb-6"
+          >
+            Kontakt Oss
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl max-w-3xl mx-auto"
+          >
             Vi er her for å hjelpe deg. Ta kontakt for en uforpliktende samtale om 
             hvordan vi kan bidra til din bedrifts suksess.
-          </p>
+          </motion.p>
         </div>
       </section>
 
       {/* Quick Contact Buttons */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a
+            <motion.a
               href="mailto:post@psoregnskap.no"
-              className="flex items-center justify-center gap-3 p-6 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+              whileHover={{ scale: 1.02, y: -2 }}
+              className="flex items-center justify-center gap-3 p-6 bg-gradient-to-r from-primary to-teal-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all backdrop-blur-sm"
             >
               <Mail size={24} />
               <div className="text-left">
                 <div className="font-semibold">Send oss en e-post</div>
-                <div className="text-sm">post@psoregnskap.no</div>
+                <div className="text-sm opacity-90">post@psoregnskap.no</div>
               </div>
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="tel:46911911"
-              className="flex items-center justify-center gap-3 p-6 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
+              whileHover={{ scale: 1.02, y: -2 }}
+              className="flex items-center justify-center gap-3 p-6 bg-gradient-to-r from-accent to-orange-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all"
             >
               <Phone size={24} />
               <div className="text-left">
                 <div className="font-semibold">Ring oss</div>
-                <div className="text-sm">46 91 19 11</div>
+                <div className="text-sm opacity-90">46 91 19 11</div>
               </div>
-            </a>
+            </motion.a>
           </div>
         </div>
       </section>
@@ -98,12 +118,34 @@ export default function KontaktPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Contact Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl">Send oss en melding</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card className="shadow-xl border-2 border-gray-100 bg-white/80 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Send oss en melding</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {submitted ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-12"
+                    >
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                      >
+                        <CheckCircle className="w-20 h-20 text-primary mx-auto mb-4" />
+                      </motion.div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Takk for din henvendelse!</h3>
+                      <p className="text-gray-600">Vi tar kontakt så snart som mulig.</p>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Navn *
@@ -173,78 +215,120 @@ export default function KontaktPage() {
                       placeholder="Fortell oss hvordan vi kan hjelpe deg"
                     />
                   </div>
-                  <Button type="submit" className="w-full" size="lg">
-                    <Send className="mr-2" size={20} />
-                    Send melding
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                      <Button 
+                        type="submit" 
+                        className="w-full hover:scale-105 transition-transform" 
+                        size="lg"
+                      >
+                        <Send className="mr-2" size={20} />
+                        Send melding
+                      </Button>
+                    </form>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* Office Cards */}
-            <div className="space-y-6">
-              {offices.map((office, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="text-2xl flex items-center gap-2">
-                      <MapPin className="text-primary" />
-                      {office.name}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Adresse</p>
-                        <p className="text-gray-600">{office.address}</p>
+            <motion.div 
+              className="space-y-6"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              {offices.map((office) => (
+                <motion.div
+                  key={office.id}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Card className="shadow-xl border-2 border-gray-100 bg-white/80 backdrop-blur-sm">
+                    <CardHeader>
+                      <CardTitle className="text-2xl flex items-center gap-2">
+                        <MapPin className="text-primary" />
+                        {office.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Adresse</p>
+                          <p className="text-gray-600">{office.address}, {office.postalCode} {office.city}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Phone className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Telefon</p>
-                        <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="text-primary hover:underline">
-                          {office.phone}
-                        </a>
+                      <div className="flex items-start gap-3">
+                        <Phone className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Telefon</p>
+                          <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="text-primary hover:underline">
+                            {office.phone}
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Mail className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">E-post</p>
-                        <a href={`mailto:${office.email}`} className="text-primary hover:underline">
-                          {office.email}
-                        </a>
+                      <div className="flex items-start gap-3">
+                        <Mail className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">E-post</p>
+                          <a href={`mailto:${office.email}`} className="text-primary hover:underline">
+                            {office.email}
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Clock className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Åpningstider</p>
-                        <p className="text-gray-600">{office.hours}</p>
+                      <div className="flex items-start gap-3">
+                        <Clock className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Åpningstider</p>
+                          <p className="text-gray-600">{office.hours}</p>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Map Placeholder */}
-      <section className="py-16 bg-white">
+      {/* Maps Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8">Finn oss</h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent"
+          >
+            Finn oss
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {offices.map((office, index) => (
-              <div key={index} className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-primary mx-auto mb-2" />
-                  <p className="font-semibold text-lg">{office.name}</p>
-                  <p className="text-gray-600">{office.address}</p>
+            {offices.map((office) => (
+              <motion.div
+                key={office.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="rounded-xl overflow-hidden shadow-xl border-2 border-gray-100"
+              >
+                <div className="bg-white p-4">
+                  <h3 className="font-bold text-xl mb-2 flex items-center gap-2">
+                    <MapPin className="text-primary" />
+                    {office.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm">{office.address}, {office.postalCode} {office.city}</p>
                 </div>
-              </div>
+                <div className="h-80 bg-gray-100">
+                  <iframe
+                    src={office.mapEmbed}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    title={`Kart over ${office.name}`}
+                  />
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
