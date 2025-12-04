@@ -1,15 +1,40 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CheckCircle2, TrendingUp, Users, Award } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import type { Settings } from "@/lib/types"
 
 export default function Hero() {
+  const [settings, setSettings] = useState<Settings | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/settings")
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(console.error);
+  }, []);
+
+  // Default values
+  const hero = settings?.homepage?.hero || {
+    title: "Situasjonstilpasset Skreddersydd Regnskapshjelp",
+    subtitle: "Vi leverer profesjonelle regnskapstjenester tilpasset dine behov",
+    backgroundImage: "",
+    primaryCta: { text: "Finn din pakke", link: "#quiz" },
+    secondaryCta: { text: "Kontakt oss", link: "/kontakt" }
+  };
   return (
     <section className="relative min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Professional Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-teal-900 via-slate-800 to-slate-900">
+        {hero.backgroundImage && (
+          <div 
+            className="absolute inset-0 bg-cover bg-center opacity-30"
+            style={{ backgroundImage: `url(${hero.backgroundImage})` }}
+          />
+        )}
         {/* Animated mesh gradient overlay */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
@@ -96,11 +121,7 @@ export default function Hero() {
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
         >
           <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent drop-shadow-lg">
-            Situasjonstilpasset
-          </span>
-          <br />
-          <span className="bg-gradient-to-r from-primary via-teal-400 to-primary bg-clip-text text-transparent animate-gradient">
-            Skreddersydd Regnskapshjelp
+            {hero.title}
           </span>
         </motion.h1>
 
@@ -110,7 +131,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed"
         >
-          Vi leverer profesjonelle regnskapstjenester tilpasset dine behov
+          {hero.subtitle}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -120,21 +141,21 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
-          <Link href="#quiz">
+          <Link href={hero.primaryCta.link}>
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary-dark text-white shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
             >
-              Finn din pakke <ArrowRight className="ml-2" size={20} />
+              {hero.primaryCta.text} <ArrowRight className="ml-2" size={20} />
             </Button>
           </Link>
-          <Link href="/kontakt">
+          <Link href={hero.secondaryCta.link}>
             <Button 
               size="lg" 
               variant="outline" 
               className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/10"
             >
-              Kontakt oss
+              {hero.secondaryCta.text}
             </Button>
           </Link>
         </motion.div>

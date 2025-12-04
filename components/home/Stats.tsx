@@ -1,32 +1,37 @@
 "use client"
 
-import { Users, Calendar, UserCheck, Headphones } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Users, Calendar, UserCheck, Headphones, TrendingUp, Award, Target, CheckCircle, Star, ThumbsUp } from "lucide-react"
 import { motion } from "framer-motion"
+import type { Settings, HomepageStat } from "@/lib/types"
 
-const stats = [
-  {
-    icon: Users,
-    value: "500+",
-    label: "Fornøyde kunder",
-  },
-  {
-    icon: Calendar,
-    value: "20+",
-    label: "År med erfaring",
-  },
-  {
-    icon: UserCheck,
-    value: "4",
-    label: "Autoriserte regnskapsførere",
-  },
-  {
-    icon: Headphones,
-    value: "24/7",
-    label: "Støtte",
-  },
-]
+// Icon mapping for type safety
+const iconMap = {
+  Users,
+  Calendar,
+  UserCheck,
+  Headphones,
+  TrendingUp,
+  Award,
+  Target,
+  CheckCircle,
+  Star,
+  ThumbsUp,
+} as const;
 
 export default function Stats() {
+  const [stats, setStats] = useState<HomepageStat[]>([]);
+
+  useEffect(() => {
+    fetch("/api/admin/settings")
+      .then(res => res.json())
+      .then((data: Settings) => {
+        if (data.homepage?.stats) {
+          setStats(data.homepage.stats.sort((a, b) => a.order - b.order));
+        }
+      })
+      .catch(console.error);
+  }, []);
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Background decoration */}
@@ -36,12 +41,14 @@ export default function Stats() {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${stats.length === 4 ? 'lg:grid-cols-4' : stats.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'}`}>
           {stats.map((stat, index) => {
-            const Icon = stat.icon
+            // Dynamically get the icon component from type-safe map
+            const IconComponent = iconMap[stat.icon as keyof typeof iconMap] || Users;
+            
             return (
               <motion.div
-                key={index}
+                key={stat.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -55,7 +62,7 @@ export default function Stats() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="relative p-4 bg-gradient-to-br from-primary/10 to-teal-500/10 rounded-full border-2 border-primary/20">
-                    <Icon className="w-8 h-8 text-primary" />
+                    <IconComponent className="w-8 h-8 text-primary" />
                     <motion.div
                       className="absolute inset-0 rounded-full bg-primary/20"
                       animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}

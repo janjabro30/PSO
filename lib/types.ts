@@ -79,12 +79,21 @@ export interface Office {
   };
 }
 
+export interface HomepageStat {
+  id: string;
+  icon: string;
+  value: string;
+  label: string;
+  order: number;
+}
+
 export interface Settings {
   company: {
     name: string;
     tagline: string;
     description: string;
     logoUrl: string;
+    faviconUrl?: string;
   };
   contact: {
     email: string;
@@ -108,5 +117,21 @@ export interface Settings {
     facebook: string;
     linkedin: string;
     twitter: string;
+  };
+  homepage?: {
+    hero: {
+      title: string;
+      subtitle: string;
+      backgroundImage?: string;
+      primaryCta: {
+        text: string;
+        link: string;
+      };
+      secondaryCta: {
+        text: string;
+        link: string;
+      };
+    };
+    stats: HomepageStat[];
   };
 }

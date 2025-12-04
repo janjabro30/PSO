@@ -10,7 +10,8 @@ import {
   HelpCircle, 
   Mail, 
   Settings,
-  LogOut
+  LogOut,
+  Home
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { logout } from "@/lib/auth";
@@ -18,6 +19,7 @@ import { useRouter } from "next/navigation";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Hjemmeside", href: "/admin/hjemmeside", icon: Home },
   { name: "Tjenester", href: "/admin/tjenester", icon: Wrench },
   { name: "Artikler", href: "/admin/artikler", icon: FileText },
   { name: "Team", href: "/admin/team", icon: Users },
