@@ -1,0 +1,92 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Hvor mange ansatte har bedriften din?",
+      "answers": [
+        {
+          "text": "Kun meg (enkeltpersonforetak)",
+          "score": { "total": 0, "basic": 2, "workshop": 0, "pluss": 1 }
+        },
+        {
+          "text": "1-5 ansatte",
+          "score": { "total": 1, "basic": 1, "workshop": 1, "pluss": 1 }
+        },
+        {
+          "text": "6-20 ansatte",
+          "score": { "total": 2, "basic": 0, "workshop": 1, "pluss": 1 }
+        },
+        {
+          "text": "20+ ansatte",
+          "score": { "total": 3, "basic": 0, "workshop": 2, "pluss": 0 }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Hva trenger du mest hjelp med?",
+      "answers": [
+        {
+          "text": "Komplett regnskapshjelp",
+          "score": { "total": 3, "basic": 0, "workshop": 0, "pluss": 0 }
+        },
+        {
+          "text": "Enkel bokføring og rapportering",
+          "score": { "total": 0, "basic": 3, "workshop": 0, "pluss": 0 }
+        },
+        {
+          "text": "Strategisk rådgivning",
+          "score": { "total": 0, "basic": 0, "workshop": 3, "pluss": 0 }
+        },
+        {
+          "text": "Fakturering og personlig rådgiver",
+          "score": { "total": 0, "basic": 0, "workshop": 0, "pluss": 3 }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "Hvor mye tid bruker du på regnskap i dag?",
+      "answers": [
+        {
+          "text": "Flere dager i måneden",
+          "score": { "total": 2, "basic": 1, "workshop": 1, "pluss": 1 }
+        },
+        {
+          "text": "Noen timer i måneden",
+          "score": { "total": 1, "basic": 2, "workshop": 1, "pluss": 1 }
+        },
+        {
+          "text": "Mindre enn en time",
+          "score": { "total": 0, "basic": 1, "workshop": 0, "pluss": 2 }
+        },
+        {
+          "text": "Ingen tid (outsourcer alt)",
+          "score": { "total": 3, "basic": 0, "workshop": 2, "pluss": 0 }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "Hva er viktigst for deg?",
+      "answers": [
+        {
+          "text": "Komplett løsning uten bekymringer",
+          "score": { "total": 3, "basic": 0, "workshop": 1, "pluss": 0 }
+        },
+        {
+          "text": "Kostnadseffektivitet",
+          "score": { "total": 0, "basic": 3, "workshop": 0, "pluss": 1 }
+        },
+        {
+          "text": "Strategisk vekst",
+          "score": { "total": 1, "basic": 0, "workshop": 3, "pluss": 0 }
+        },
+        {
+          "text": "Personlig oppfølging",
+          "score": { "total": 0, "basic": 0, "workshop": 1, "pluss": 3 }
+        }
+      ]
+    }
+  ]
+}

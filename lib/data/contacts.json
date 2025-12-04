@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "date": "2024-01-15T10:30:00Z",
+    "name": "Kari Nordmann",
+    "email": "kari@eksempel.no",
+    "phone": "+47 98 76 54 32",
+    "company": "Nordmann AS",
+    "message": "Hei! Vi trenger hjelp med årsoppgjør og rådgivning om skatt. Kan dere kontakte meg?",
+    "status": "unread"
+  },
+  {
+    "id": "2",
+    "date": "2024-01-20T14:15:00Z",
+    "name": "Ole Hansen",
+    "email": "ole@firma.no",
+    "phone": "+47 87 65 43 21",
+    "company": "Hansen Consulting",
+    "message": "Ønsker tilbud på løpende regnskapstjenester for et lite konsulentfirma.",
+    "status": "read"
+  }
+]
