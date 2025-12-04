@@ -17,7 +17,7 @@ export default function ArtiklerPage() {
   useEffect(() => {
     const loadArticles = async () => {
       try {
-        const res = await fetch("/api/admin/articles")
+        const res = await fetch("/api/articles")
         const data = await res.json()
         setArticles(data)
       } catch (error) {

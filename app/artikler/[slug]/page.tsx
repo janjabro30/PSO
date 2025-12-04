@@ -18,7 +18,7 @@ export default function ArticlePage() {
   useEffect(() => {
     const loadArticle = async () => {
       try {
-        const res = await fetch("/api/admin/articles")
+        const res = await fetch("/api/articles")
         const articles: Article[] = await res.json()
         const found = articles.find((a) => a.slug === slug)
         setArticle(found || null)

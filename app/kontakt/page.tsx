@@ -22,7 +22,7 @@ export default function KontaktPage() {
   useEffect(() => {
     const loadOffices = async () => {
       try {
-        const res = await fetch("/lib/data/offices.json")
+        const res = await fetch("/api/offices")
         const data = await res.json()
         setOffices(data)
       } catch (error) {
