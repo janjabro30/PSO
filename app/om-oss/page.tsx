@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Building2, Users, Award, TrendingUp, MapPin, Mail, Phone } from "lucide-react"
 import { motion } from "framer-motion"
 import type { TeamMember } from "@/lib/types"
+import { formatPhoneForTel } from "@/lib/utils"
 
 const stats = [
   {
@@ -223,13 +224,13 @@ export default function OmOssPage() {
                     <p className="text-gray-600 text-sm text-center">{member.office}</p>
                     <div className="mt-3 pt-3 border-t border-gray-200">
                       <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mb-1">
-                        <Phone className="w-3 h-3" />
-                        <a href={`tel:${member.phone.replace(/\s/g, '')}`} className="hover:text-primary">
+                        <Phone className="w-3 h-3 flex-shrink-0" />
+                        <a href={`tel:${formatPhoneForTel(member.phone)}`} className="hover:text-primary">
                           {member.phone}
                         </a>
                       </div>
                       <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-                        <Mail className="w-3 h-3" />
+                        <Mail className="w-3 h-3 flex-shrink-0" />
                         <a href={`mailto:${member.email}`} className="hover:text-primary">
                           {member.email}
                         </a>
@@ -294,7 +295,7 @@ export default function OmOssPage() {
                       </div>
                       <div className="flex items-center gap-3">
                         <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                        <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="text-gray-700 hover:text-primary transition-colors">
+                        <a href={`tel:${formatPhoneForTel(office.phone)}`} className="text-gray-700 hover:text-primary transition-colors">
                           {office.phone}
                         </a>
                       </div>

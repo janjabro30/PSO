@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import { Office } from "@/lib/types"
+import { formatPhoneForTel } from "@/lib/utils"
 
 export default function KontaktPage() {
   const [offices, setOffices] = useState<Office[]>([])
@@ -261,7 +262,7 @@ export default function KontaktPage() {
                         <Phone className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                         <div>
                           <p className="font-medium">Telefon</p>
-                          <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="text-primary hover:underline">
+                          <a href={`tel:${formatPhoneForTel(office.phone)}`} className="text-primary hover:underline">
                             {office.phone}
                           </a>
                         </div>

@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { Mail, Phone, MapPin } from "lucide-react"
 import type { Settings } from "@/lib/types"
+import { formatPhoneForTel } from "@/lib/utils"
 
 export default function Footer() {
   const [settings, setSettings] = useState<Settings | null>(null)
@@ -96,7 +97,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2 min-h-[44px] items-center">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-gray-400 hover:text-primary transition-colors">
+                <a href={`tel:${formatPhoneForTel(phone)}`} className="text-gray-400 hover:text-primary transition-colors">
                   {phone}
                 </a>
               </li>
