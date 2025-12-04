@@ -157,7 +157,7 @@ export default function TjenesterPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-12 sm:py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
@@ -166,7 +166,7 @@ export default function TjenesterPage() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-4"
           >
             Våre Tjenester
           </motion.h1>
@@ -174,7 +174,7 @@ export default function TjenesterPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-4"
           >
             Vi tilbyr fire ulike pakker skreddersydd for bedrifter av alle størrelser. 
             Fra enkelt regnskap til full strategisk rådgivning.
@@ -185,7 +185,7 @@ export default function TjenesterPage() {
       {/* Services Grid */}
       <section className="py-16 bg-gradient-to-b from-white via-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {packages.map((pkg, index) => {
               const Icon = pkg.icon;
               return (
@@ -204,7 +204,7 @@ export default function TjenesterPage() {
                   <motion.div
                     whileHover={{ 
                       y: -8,
-                      scale: pkg.isPopular ? 1.02 : 1.03,
+                      scale: 1.02,
                       transition: { type: "spring", stiffness: 300 }
                     }}
                     className="h-full"
@@ -235,25 +235,25 @@ export default function TjenesterPage() {
                       <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent pointer-events-none" />
                       
                       <div className={`relative ${pkg.isPopular ? 'lg:flex lg:gap-8' : ''}`}>
-                        <CardHeader className={`pb-6 ${pkg.isPopular ? 'lg:w-1/3' : ''}`}>
+                        <CardHeader className={`pb-4 sm:pb-6 ${pkg.isPopular ? 'lg:w-1/3' : ''}`}>
                           {/* Icon */}
                           <motion.div 
-                            className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${pkg.bgGradient} flex items-center justify-center mb-4 shadow-lg border-2 ${pkg.color}`}
+                            className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${pkg.bgGradient} flex items-center justify-center mb-3 sm:mb-4 shadow-lg border-2 ${pkg.color}`}
                             whileHover={{ rotate: 360, scale: 1.1 }}
                             transition={{ duration: 0.6 }}
                           >
-                            <Icon className={`w-8 h-8 ${pkg.accentColor}`} />
+                            <Icon className={`w-6 h-6 sm:w-8 sm:h-8 ${pkg.accentColor}`} />
                           </motion.div>
 
-                          <CardTitle className={`text-3xl mb-3 ${pkg.accentColor}`}>
+                          <CardTitle className={`text-2xl sm:text-3xl mb-2 sm:mb-3 ${pkg.accentColor}`}>
                             {pkg.name}
                           </CardTitle>
-                          <CardDescription className="text-base text-gray-700 leading-relaxed">
+                          <CardDescription className="text-sm sm:text-base text-gray-700 leading-relaxed">
                             {pkg.description}
                           </CardDescription>
 
                           {/* Divider */}
-                          <div className={`h-1 w-16 ${pkg.accentColor.replace('text-', 'bg-')} rounded-full mt-4`} />
+                          <div className={`h-1 w-12 sm:w-16 ${pkg.accentColor.replace('text-', 'bg-')} rounded-full mt-3 sm:mt-4`} />
                         </CardHeader>
 
                         <CardContent className={pkg.isPopular ? 'lg:w-2/3' : ''}>
@@ -301,7 +301,7 @@ export default function TjenesterPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold mb-4 text-white"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-white px-4"
           >
             Usikker på hvilken pakke som passer?
           </motion.h2>
@@ -310,7 +310,7 @@ export default function TjenesterPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-white/90 mb-8"
+            className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 px-4"
           >
             Ta vår quiz eller kontakt oss direkte for en uforpliktende samtale
           </motion.p>
@@ -321,13 +321,13 @@ export default function TjenesterPage() {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="/#quiz">
-              <Button size="lg" className="bg-white text-primary hover:bg-gray-100 shadow-lg hover:scale-105 transition-transform">
+            <Link href="/#quiz" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto min-h-[44px] bg-white text-primary hover:bg-gray-100 shadow-lg hover:scale-105 transition-transform">
                 Ta quiz <ArrowRight className="ml-2" size={20} />
               </Button>
             </Link>
-            <Link href="/kontakt">
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all hover:scale-105 backdrop-blur-sm bg-white/10">
+            <Link href="/kontakt" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto min-h-[44px] border-2 border-white text-white hover:bg-white hover:text-primary transition-all hover:scale-105 backdrop-blur-sm bg-white/10">
                 Kontakt oss
               </Button>
             </Link>

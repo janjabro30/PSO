@@ -1,8 +1,11 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Building2, Users, Award, TrendingUp, MapPin, Mail, Phone } from "lucide-react"
 import { motion } from "framer-motion"
+import type { TeamMember } from "@/lib/types"
+import { formatPhoneForTel } from "@/lib/utils"
 
 const stats = [
   {
@@ -27,48 +30,7 @@ const stats = [
   },
 ]
 
-const team = [
-  {
-    name: "Ola Nordmann",
-    role: "Daglig leder og autorisert regnskapsfører",
-    description: "20+ års erfaring med regnskap og økonomirådgivning",
-  },
-  {
-    name: "Kari Hansen",
-    role: "Autorisert regnskapsfører",
-    description: "Spesialist på skatterett og årsoppgjør",
-  },
-  {
-    name: "Per Jensen",
-    role: "Autorisert regnskapsfører",
-    description: "Ekspert på digital regnskap og automatisering",
-  },
-  {
-    name: "Lise Andersen",
-    role: "Autorisert regnskapsfører",
-    description: "Fokuserer på små og mellomstore bedrifter",
-  },
-  {
-    name: "Erik Olsen",
-    role: "Regnskapskonsulent",
-    description: "Har bred erfaring med bokføring og rapportering",
-  },
-  {
-    name: "Anne Kristiansen",
-    role: "Rådgiver",
-    description: "Bistår med strategisk økonomirådgivning",
-  },
-  {
-    name: "Martin Berg",
-    role: "Regnskapskonsulent",
-    description: "Spesialiserer seg på oppstartsbedrifter",
-  },
-  {
-    name: "Nina Johansen",
-    role: "Kundeservice",
-    description: "Første kontaktpunkt for våre kunder",
-  },
-]
+
 
 const offices = [
   {
@@ -86,10 +48,19 @@ const offices = [
 ]
 
 export default function OmOssPage() {
+  const [team, setTeam] = useState<TeamMember[]>([]);
+
+  useEffect(() => {
+    fetch("/api/team")
+      .then(res => res.json())
+      .then(data => setTeam(data))
+      .catch(console.error);
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-12 sm:py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
@@ -98,7 +69,7 @@ export default function OmOssPage() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-4"
           >
             Om PSO Regnskap AS
           </motion.h1>
@@ -106,7 +77,7 @@ export default function OmOssPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-4"
           >
             Profesjonell regnskapshjelp siden 2004. Vi er et dedikert team av 8 medarbeidere 
             med erfaring og kompetanse til å hjelpe din bedrift med alt av regnskapstjenester.
@@ -117,7 +88,7 @@ export default function OmOssPage() {
       {/* Stats Section */}
       <section className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {stats.map((stat, index) => {
               const Icon = stat.icon
               return (
@@ -131,12 +102,12 @@ export default function OmOssPage() {
                   className="text-center"
                 >
                   <motion.div 
-                    className="flex justify-center mb-4"
+                    className="flex justify-center mb-3 sm:mb-4"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <div className="relative p-4 bg-gradient-to-br from-primary/10 to-teal-500/10 rounded-full border-2 border-primary/20">
-                      <Icon className="w-8 h-8 text-primary" />
+                    <div className="relative p-3 sm:p-4 bg-gradient-to-br from-primary/10 to-teal-500/10 rounded-full border-2 border-primary/20">
+                      <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                       <motion.div
                         className="absolute inset-0 rounded-full bg-primary/20"
                         animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
@@ -144,10 +115,10 @@ export default function OmOssPage() {
                       />
                     </div>
                   </motion.div>
-                  <div className="text-4xl font-bold bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
+                  <div className="text-sm sm:text-base text-gray-600 font-medium">{stat.label}</div>
                 </motion.div>
               )
             })}
@@ -166,7 +137,7 @@ export default function OmOssPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 sm:mb-8 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent px-4"
           >
             Vår Historie
           </motion.h2>
@@ -216,7 +187,7 @@ export default function OmOssPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent px-4"
           >
             Møt Teamet
           </motion.h2>
@@ -225,14 +196,14 @@ export default function OmOssPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-600 text-center mb-12"
+            className="text-base sm:text-lg md:text-xl text-gray-600 text-center mb-8 sm:mb-12 px-4"
           >
             Våre dyktige medarbeidere er klar til å hjelpe deg
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member, index) => (
               <motion.div
-                key={index}
+                key={member.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -249,8 +220,22 @@ export default function OmOssPage() {
                       <Users className="w-12 h-12 text-primary" />
                     </motion.div>
                     <h3 className="text-xl font-semibold text-center mb-2">{member.name}</h3>
-                    <p className="text-primary text-sm text-center mb-2 font-medium">{member.role}</p>
-                    <p className="text-gray-600 text-sm text-center">{member.description}</p>
+                    <p className="text-primary text-sm text-center mb-2 font-medium">{member.title}</p>
+                    <p className="text-gray-600 text-sm text-center">{member.office}</p>
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mb-1">
+                        <Phone className="w-3 h-3 flex-shrink-0" />
+                        <a href={`tel:${formatPhoneForTel(member.phone)}`} className="hover:text-primary">
+                          {member.phone}
+                        </a>
+                      </div>
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                        <Mail className="w-3 h-3 flex-shrink-0" />
+                        <a href={`mailto:${member.email}`} className="hover:text-primary">
+                          {member.email}
+                        </a>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -270,7 +255,7 @@ export default function OmOssPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent px-4"
           >
             Våre Kontorer
           </motion.h2>
@@ -279,11 +264,11 @@ export default function OmOssPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-600 text-center mb-12"
+            className="text-base sm:text-lg md:text-xl text-gray-600 text-center mb-8 sm:mb-12 px-4"
           >
             Vi har kontorer i både Spydeberg og Oslo
           </motion.p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {offices.map((office, index) => (
               <motion.div
                 key={index}
@@ -310,7 +295,7 @@ export default function OmOssPage() {
                       </div>
                       <div className="flex items-center gap-3">
                         <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                        <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="text-gray-700 hover:text-primary transition-colors">
+                        <a href={`tel:${formatPhoneForTel(office.phone)}`} className="text-gray-700 hover:text-primary transition-colors">
                           {office.phone}
                         </a>
                       </div>

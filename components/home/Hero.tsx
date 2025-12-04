@@ -11,7 +11,7 @@ export default function Hero() {
   const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/settings")
+    fetch("/api/settings")
       .then(res => res.json())
       .then(data => setSettings(data))
       .catch(console.error);
@@ -19,14 +19,14 @@ export default function Hero() {
 
   // Default values
   const hero = settings?.homepage?.hero || {
-    title: "Situasjonstilpasset Skreddersydd Regnskapshjelp",
+    title: "Skreddersydde regnskapstjenester",
     subtitle: "Vi leverer profesjonelle regnskapstjenester tilpasset dine behov",
     backgroundImage: "",
     primaryCta: { text: "Finn din pakke", link: "#quiz" },
     secondaryCta: { text: "Kontakt oss", link: "/kontakt" }
   };
   return (
-    <section className="relative min-h-[700px] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[600px] sm:min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Professional Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-teal-900 via-slate-800 to-slate-900">
         {hero.backgroundImage && (
@@ -94,7 +94,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 sm:py-16 md:py-20">
         {/* Animated Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -118,7 +118,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 px-2"
         >
           <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent drop-shadow-lg">
             {hero.title}
@@ -129,7 +129,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto leading-relaxed"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-4"
         >
           {hero.subtitle}
         </motion.p>
@@ -139,21 +139,21 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-10 sm:mb-16 px-4"
         >
-          <Link href={hero.primaryCta.link}>
+          <Link href={hero.primaryCta.link} className="w-full sm:w-auto">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary-dark text-white shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+              className="w-full sm:w-auto min-h-[44px] bg-primary hover:bg-primary-dark text-white shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
             >
               {hero.primaryCta.text} <ArrowRight className="ml-2" size={20} />
             </Button>
           </Link>
-          <Link href={hero.secondaryCta.link}>
+          <Link href={hero.secondaryCta.link} className="w-full sm:w-auto">
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/10"
+              className="w-full sm:w-auto min-h-[44px] border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/10"
             >
               {hero.secondaryCta.text}
             </Button>
@@ -165,7 +165,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4"
         >
           {[
             { icon: Users, label: "Fornøyde kunder", value: "500+" },
@@ -175,11 +175,11 @@ export default function Hero() {
             <motion.div
               key={index}
               whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-primary/50 transition-all duration-300"
+              className="bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20 hover:border-primary/50 transition-all duration-300"
             >
-              <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-300">{stat.label}</div>
+              <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2 sm:mb-3" />
+              <div className="text-2xl sm:text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-xs sm:text-sm text-gray-300">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

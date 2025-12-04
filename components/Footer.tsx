@@ -1,8 +1,40 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 import { Mail, Phone, MapPin } from "lucide-react"
+import type { Settings } from "@/lib/types"
+import { formatPhoneForTel } from "@/lib/utils"
 
 export default function Footer() {
+  const [settings, setSettings] = useState<Settings | null>(null)
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(console.error);
+  }, []);
+
+  const logoUrl = settings?.company?.logoUrl || "/images/pso-logo.svg";
+  const companyName = settings?.company?.name || "PSO Regnskap AS";
+  const tagline = settings?.company?.tagline || "Profesjonell regnskapshjelp siden 2004";
+  const email = settings?.contact?.email || "post@psoregnskap.no";
+  const phone = settings?.contact?.phone || "46 91 19 11";
+  const spydebergOffice = settings?.offices?.spydeberg || {
+    name: "Spydeberg",
+    address: "Wilses vei 3",
+    postalCode: "1820",
+    city: "Spydeberg"
+  };
+  const osloOffice = settings?.offices?.oslo || {
+    name: "Oslo",
+    address: "Brynsveien 18",
+    postalCode: "0667",
+    city: "Oslo"
+  };
+
   return (
     <footer className="bg-dark text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -10,14 +42,14 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="col-span-1">
             <Image
-              src="/images/pso-logo.svg"
-              alt="PSO Regnskap AS"
+              src={logoUrl}
+              alt={companyName}
               width={120}
               height={60}
               className="h-12 w-auto mb-4"
             />
             <p className="text-gray-400 text-sm">
-              Profesjonell regnskapshjelp siden 2004
+              {tagline}
             </p>
           </div>
 
@@ -57,16 +89,16 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">Kontakt</h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <Mail className="w-5 h-5 text-primary mt-0.5" />
-                <a href="mailto:post@psoregnskap.no" className="text-gray-400 hover:text-primary transition-colors">
-                  post@psoregnskap.no
+              <li className="flex items-start gap-2 min-h-[44px] items-center">
+                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
+                <a href={`mailto:${email}`} className="text-gray-400 hover:text-primary transition-colors">
+                  {email}
                 </a>
               </li>
-              <li className="flex items-start gap-2">
-                <Phone className="w-5 h-5 text-primary mt-0.5" />
-                <a href="tel:46911911" className="text-gray-400 hover:text-primary transition-colors">
-                  46 91 19 11
+              <li className="flex items-start gap-2 min-h-[44px] items-center">
+                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
+                <a href={`tel:${formatPhoneForTel(phone)}`} className="text-gray-400 hover:text-primary transition-colors">
+                  {phone}
                 </a>
               </li>
             </ul>
@@ -77,17 +109,17 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Kontorer</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
-                <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <div className="text-gray-400">
-                  <div className="font-medium text-white">Spydeberg</div>
-                  <div className="text-sm">Wilses vei 3, 1820 Spydeberg</div>
+                  <div className="font-medium text-white">{spydebergOffice.name}</div>
+                  <div className="text-sm">{spydebergOffice.address}, {spydebergOffice.postalCode} {spydebergOffice.city}</div>
                 </div>
               </li>
               <li className="flex items-start gap-2">
-                <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <div className="text-gray-400">
-                  <div className="font-medium text-white">Oslo</div>
-                  <div className="text-sm">Brynsveien 18, 0667 Oslo</div>
+                  <div className="font-medium text-white">{osloOffice.name}</div>
+                  <div className="text-sm">{osloOffice.address}, {osloOffice.postalCode} {osloOffice.city}</div>
                 </div>
               </li>
             </ul>
@@ -95,7 +127,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} PSO Regnskap AS. Alle rettigheter reservert.</p>
+          <p>&copy; {new Date().getFullYear()} {companyName}. Alle rettigheter reservert.</p>
           <p className="mt-2">
             <a 
               href="https://nornex.no" 

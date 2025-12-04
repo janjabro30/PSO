@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import { Office } from "@/lib/types"
+import { formatPhoneForTel } from "@/lib/utils"
 
 export default function KontaktPage() {
   const [offices, setOffices] = useState<Office[]>([])
@@ -58,7 +59,7 @@ export default function KontaktPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-teal-900 via-primary to-slate-800 text-white py-12 sm:py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
@@ -67,7 +68,7 @@ export default function KontaktPage() {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-4"
           >
             Kontakt Oss
           </motion.h1>
@@ -75,7 +76,7 @@ export default function KontaktPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto px-4"
           >
             Vi er her for å hjelpe deg. Ta kontakt for en uforpliktende samtale om 
             hvordan vi kan bidra til din bedrifts suksess.
@@ -84,29 +85,29 @@ export default function KontaktPage() {
       </section>
 
       {/* Quick Contact Buttons */}
-      <section className="py-8 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-6 sm:py-8 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             <motion.a
               href="mailto:post@psoregnskap.no"
               whileHover={{ scale: 1.02, y: -2 }}
-              className="flex items-center justify-center gap-3 p-6 bg-gradient-to-r from-primary to-teal-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all backdrop-blur-sm"
+              className="flex items-center justify-center gap-3 p-4 sm:p-6 bg-gradient-to-r from-primary to-teal-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all backdrop-blur-sm min-h-[44px]"
             >
-              <Mail size={24} />
+              <Mail size={20} className="sm:w-6 sm:h-6 flex-shrink-0" />
               <div className="text-left">
-                <div className="font-semibold">Send oss en e-post</div>
-                <div className="text-sm opacity-90">post@psoregnskap.no</div>
+                <div className="font-semibold text-sm sm:text-base">Send oss en e-post</div>
+                <div className="text-xs sm:text-sm opacity-90">post@psoregnskap.no</div>
               </div>
             </motion.a>
             <motion.a
               href="tel:46911911"
               whileHover={{ scale: 1.02, y: -2 }}
-              className="flex items-center justify-center gap-3 p-6 bg-gradient-to-r from-accent to-orange-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all"
+              className="flex items-center justify-center gap-3 p-4 sm:p-6 bg-gradient-to-r from-accent to-orange-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all min-h-[44px]"
             >
-              <Phone size={24} />
+              <Phone size={20} className="sm:w-6 sm:h-6 flex-shrink-0" />
               <div className="text-left">
-                <div className="font-semibold">Ring oss</div>
-                <div className="text-sm opacity-90">46 91 19 11</div>
+                <div className="font-semibold text-sm sm:text-base">Ring oss</div>
+                <div className="text-xs sm:text-sm opacity-90">46 91 19 11</div>
               </div>
             </motion.a>
           </div>
@@ -116,7 +117,7 @@ export default function KontaktPage() {
       {/* Contact Form and Offices */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -125,7 +126,7 @@ export default function KontaktPage() {
             >
               <Card className="shadow-xl border-2 border-gray-100 bg-white/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl">Send oss en melding</CardTitle>
+                  <CardTitle className="text-xl sm:text-2xl">Send oss en melding</CardTitle>
                 </CardHeader>
                 <CardContent>
                   {submitted ? (
@@ -217,7 +218,7 @@ export default function KontaktPage() {
                   </div>
                       <Button 
                         type="submit" 
-                        className="w-full hover:scale-105 transition-transform" 
+                        className="w-full hover:scale-105 transition-transform min-h-[44px]" 
                         size="lg"
                       >
                         <Send className="mr-2" size={20} />
@@ -244,8 +245,8 @@ export default function KontaktPage() {
                 >
                   <Card className="shadow-xl border-2 border-gray-100 bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle className="text-2xl flex items-center gap-2">
-                        <MapPin className="text-primary" />
+                      <CardTitle className="text-xl sm:text-2xl flex items-center gap-2">
+                        <MapPin className="text-primary w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                         {office.name}
                       </CardTitle>
                     </CardHeader>
@@ -261,7 +262,7 @@ export default function KontaktPage() {
                         <Phone className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                         <div>
                           <p className="font-medium">Telefon</p>
-                          <a href={`tel:${office.phone.replace(/\s/g, '')}`} className="text-primary hover:underline">
+                          <a href={`tel:${formatPhoneForTel(office.phone)}`} className="text-primary hover:underline">
                             {office.phone}
                           </a>
                         </div>
@@ -298,11 +299,11 @@ export default function KontaktPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent px-4"
           >
             Finn oss
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {offices.map((office) => (
               <motion.div
                 key={office.id}
@@ -311,14 +312,14 @@ export default function KontaktPage() {
                 viewport={{ once: true }}
                 className="rounded-xl overflow-hidden shadow-xl border-2 border-gray-100"
               >
-                <div className="bg-white p-4">
-                  <h3 className="font-bold text-xl mb-2 flex items-center gap-2">
-                    <MapPin className="text-primary" />
+                <div className="bg-white p-3 sm:p-4">
+                  <h3 className="font-bold text-lg sm:text-xl mb-2 flex items-center gap-2">
+                    <MapPin className="text-primary w-5 h-5 flex-shrink-0" />
                     {office.name}
                   </h3>
-                  <p className="text-gray-600 text-sm">{office.address}, {office.postalCode} {office.city}</p>
+                  <p className="text-gray-600 text-xs sm:text-sm">{office.address}, {office.postalCode} {office.city}</p>
                 </div>
-                <div className="h-80 bg-gray-100">
+                <div className="h-64 sm:h-80 bg-gray-100">
                   <iframe
                     src={office.mapEmbed}
                     width="100%"

@@ -31,17 +31,17 @@ export default function ArticlesPreview() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent px-4">
             Siste Artikler
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-base sm:text-lg text-gray-600 px-4">
             Hold deg oppdatert med våre fagartikler og nyheter
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {articles.map((article, index) => (
             <motion.div
               key={article.id}
@@ -53,14 +53,14 @@ export default function ArticlesPreview() {
               <Link href={`/artikler/${article.slug}`}>
                 <Card className="h-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer border-2 border-gray-100 bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                      <Calendar className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2">
+                      <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                       <span>{new Date(article.date).toLocaleDateString('no-NO')}</span>
-                      <span className="ml-auto bg-gradient-to-r from-primary/10 to-teal-500/10 text-primary px-3 py-1 rounded-full text-xs font-medium border border-primary/20">
+                      <span className="ml-auto bg-gradient-to-r from-primary/10 to-teal-500/10 text-primary px-2 sm:px-3 py-1 rounded-full text-xs font-medium border border-primary/20">
                         {article.category}
                       </span>
                     </div>
-                    <CardTitle className="text-xl hover:text-primary transition-colors">
+                    <CardTitle className="text-lg sm:text-xl hover:text-primary transition-colors">
                       {article.title}
                     </CardTitle>
                     <CardDescription className="line-clamp-2">
@@ -85,8 +85,8 @@ export default function ArticlesPreview() {
           transition={{ delay: 0.4 }}
           className="text-center"
         >
-          <Link href="/artikler">
-            <Button size="lg" className="hover:scale-105 transition-transform shadow-lg">
+          <Link href="/artikler" className="inline-block">
+            <Button size="lg" className="min-h-[44px] hover:scale-105 transition-transform shadow-lg">
               Se alle artikler <ArrowRight className="ml-2" />
             </Button>
           </Link>
