@@ -3,7 +3,8 @@
     "name": "PSO Regnskap AS",
     "tagline": "Profesjonell Regnskapshjelp",
     "description": "PSO Regnskap AS tilbyr skreddersydd regnskapshjelp for norske bedrifter. Vi har kontorer i Spydeberg og Oslo.",
-    "logoUrl": "/images/logo.png"
+    "logoUrl": "/images/logo.png",
+    "faviconUrl": "/images/favicon.ico"
   },
   "contact": {
     "email": "post@psoregnskap.no",
@@ -27,5 +28,50 @@
     "facebook": "https://facebook.com/psoregnskap",
     "linkedin": "https://linkedin.com/company/psoregnskap",
     "twitter": "https://twitter.com/psoregnskap"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Situasjonstilpasset Skreddersydd Regnskapshjelp",
+      "subtitle": "Vi leverer profesjonelle regnskapstjenester tilpasset dine behov",
+      "backgroundImage": "",
+      "primaryCta": {
+        "text": "Finn din pakke",
+        "link": "#quiz"
+      },
+      "secondaryCta": {
+        "text": "Kontakt oss",
+        "link": "/kontakt"
+      }
+    },
+    "stats": [
+      {
+        "id": "1",
+        "icon": "Users",
+        "value": "500+",
+        "label": "Fornøyde kunder",
+        "order": 1
+      },
+      {
+        "id": "2",
+        "icon": "Calendar",
+        "value": "20+",
+        "label": "År med erfaring",
+        "order": 2
+      },
+      {
+        "id": "3",
+        "icon": "UserCheck",
+        "value": "4",
+        "label": "Autoriserte regnskapsførere",
+        "order": 3
+      },
+      {
+        "id": "4",
+        "icon": "Headphones",
+        "value": "24/7",
+        "label": "Støtte",
+        "order": 4
+      }
+    ]
   }
 }

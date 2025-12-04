@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Save } from "lucide-react";
 import type { Settings } from "@/lib/types";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -98,20 +99,28 @@ export default function SettingsPage() {
                 rows={3}
               />
             </div>
-            <div>
-              <Label htmlFor="logoUrl">Logo URL</Label>
-              <Input
-                id="logoUrl"
-                value={settings.company.logoUrl}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    company: { ...settings.company, logoUrl: e.target.value },
-                  })
-                }
-                placeholder="/images/logo.png"
-              />
-            </div>
+            <ImageUpload
+              label="Logo"
+              value={settings.company.logoUrl}
+              onChange={(url) =>
+                setSettings({
+                  ...settings,
+                  company: { ...settings.company, logoUrl: url },
+                })
+              }
+              description="Bedriftslogo som vises i navigasjonen"
+            />
+            <ImageUpload
+              label="Favicon"
+              value={settings.company.faviconUrl || ""}
+              onChange={(url) =>
+                setSettings({
+                  ...settings,
+                  company: { ...settings.company, faviconUrl: url },
+                })
+              }
+              description="Favicon som vises i nettleserens fane (16x16 eller 32x32 px)"
+            />
           </CardContent>
         </Card>
 
