@@ -2,34 +2,21 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Check, Mail, ArrowRight } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Check, Mail, ArrowRight, Calculator, TrendingUp, Users, Zap, ChevronDown } from "lucide-react"
 import Link from "next/link"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react"
 
 const packages = [
   {
-    name: "Total",
-    description: "Komplett regnskapspakke for bedrifter som vil overlate alt til oss",
-    color: "border-primary",
-    bgColor: "bg-primary/5",
-    features: [
-      "Komplett regnskap og bokføring",
-      "Årsregnskap og rapportering",
-      "Budsjett og prognoser",
-      "Skatteplanlegging og rådgivning",
-      "Løpende oppfølging",
-      "Bilagsbehandling",
-      "Mva-rapportering",
-      "Årsoppgjør",
-      "Revisjonshjelp",
-      "Dedikert regnskapsfører",
-    ],
-  },
-  {
     name: "Basic",
     description: "Enkel og kostnadseffektiv løsning for små bedrifter",
-    color: "border-blue-500",
-    bgColor: "bg-blue-50",
+    icon: Calculator,
+    color: "border-slate-300",
+    bgGradient: "from-slate-50 to-white",
+    accentColor: "text-slate-600",
+    buttonColor: "bg-slate-600 hover:bg-slate-700",
     features: [
       "Enkel bokføring",
       "Løpende rapportering",
@@ -40,12 +27,60 @@ const packages = [
       "Bilagsscanning",
       "Standardrapporter",
     ],
+    isPopular: false,
+  },
+  {
+    name: "Pluss",
+    description: "Utvidet tjeneste med personlig rådgiver og fakturering",
+    icon: TrendingUp,
+    color: "border-teal-300",
+    bgGradient: "from-teal-50 to-white",
+    accentColor: "text-teal-600",
+    buttonColor: "bg-teal-600 hover:bg-teal-700",
+    features: [
+      "Alt i Basic pakken",
+      "Fakturering og innkreving",
+      "Personlig rådgiver",
+      "Prioritert support",
+      "Månedlige møter",
+      "Tilpassede rapporter",
+      "Budsjettkontroll",
+      "Regnskapssystem oppsett",
+      "Personaladministrasjon",
+      "Lønn og rapportering",
+    ],
+    isPopular: false,
+  },
+  {
+    name: "Total",
+    description: "Komplett regnskapspakke for bedrifter som vil overlate alt til oss",
+    icon: Zap,
+    color: "border-primary",
+    bgGradient: "from-primary/10 to-teal-50/50",
+    accentColor: "text-primary",
+    buttonColor: "bg-primary hover:bg-primary/90",
+    features: [
+      "Alt i Pluss pakken",
+      "Komplett regnskap og bokføring",
+      "Årsregnskap og rapportering",
+      "Budsjett og prognoser",
+      "Skatteplanlegging og rådgivning",
+      "Løpende oppfølging",
+      "Bilagsbehandling",
+      "Revisjonshjelp",
+      "Dedikert regnskapsfører",
+      "Prioritert telefonsupport",
+    ],
+    isPopular: true,
   },
   {
     name: "Workshop",
     description: "Strategisk rådgivning og workshops for vekstbedrifter",
-    color: "border-accent",
-    bgColor: "bg-orange-50",
+    icon: Users,
+    color: "border-orange-300",
+    bgGradient: "from-orange-50 to-white",
+    accentColor: "text-orange-600",
+    buttonColor: "bg-orange-600 hover:bg-orange-700",
     features: [
       "Strategiske workshops",
       "Forretningsutvikling",
@@ -58,25 +93,60 @@ const packages = [
       "Scenarioplanlegging",
       "Benchmarking",
     ],
-  },
-  {
-    name: "Pluss",
-    description: "Utvidet tjeneste med personlig rådgiver og fakturering",
-    color: "border-purple-500",
-    bgColor: "bg-purple-50",
-    features: [
-      "Fakturering og innkreving",
-      "Personlig rådgiver",
-      "Prioritert support",
-      "Månedlige møter",
-      "Tilpassede rapporter",
-      "Budsjettkontroll",
-      "Regnskapssystem oppsett",
-      "Personaladministrasjon",
-      "Lønn og rapportering",
-    ],
+    isPopular: false,
   },
 ]
+
+interface FeatureListProps {
+  features: string[];
+  accentColor: string;
+  maxVisible?: number;
+}
+
+function FeatureList({ features, accentColor, maxVisible = 6 }: FeatureListProps) {
+  const [showAll, setShowAll] = useState(false);
+  const displayedFeatures = showAll ? features : features.slice(0, maxVisible);
+  const hasMore = features.length > maxVisible;
+
+  return (
+    <div>
+      <ul className="space-y-3 mb-6">
+        <AnimatePresence>
+          {displayedFeatures.map((feature, idx) => (
+            <motion.li
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ delay: idx * 0.03 }}
+              className="flex items-start gap-3 group"
+            >
+              <motion.div
+                className={`w-5 h-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0 ${accentColor.replace('text-', 'bg-')}/10`}
+                whileHover={{ scale: 1.2, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Check className={`w-3 h-3 ${accentColor}`} />
+              </motion.div>
+              <span className="text-sm leading-relaxed group-hover:translate-x-1 transition-transform">
+                {feature}
+              </span>
+            </motion.li>
+          ))}
+        </AnimatePresence>
+      </ul>
+      {hasMore && (
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className={`text-sm font-medium ${accentColor} hover:underline flex items-center gap-1 mb-4`}
+        >
+          {showAll ? 'Vis mindre' : `Se alle ${features.length} funksjoner`}
+          <ChevronDown className={`w-4 h-4 transition-transform ${showAll ? 'rotate-180' : ''}`} />
+        </button>
+      )}
+    </div>
+  );
+}
 
 export default function TjenesterPage() {
   return (
@@ -108,51 +178,108 @@ export default function TjenesterPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 bg-gradient-to-b from-white via-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {packages.map((pkg, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.01 }}
-              >
-                <Card className={`border-2 ${pkg.color} ${pkg.bgColor} hover:shadow-2xl transition-all duration-300 h-full backdrop-blur-sm bg-white/80`}>
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-3xl">{pkg.name}</CardTitle>
-                  <CardDescription className="text-lg text-gray-700">
-                    {pkg.description}
-                  </CardDescription>
-                </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3 mb-6">
-                      {pkg.features.map((feature, idx) => (
-                        <motion.li
-                          key={idx}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.1 + idx * 0.03 }}
-                          className="flex items-start gap-3"
-                        >
-                          <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                          <span>{feature}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                    <Link href="/kontakt">
-                      <Button className="w-full hover:scale-105 transition-transform" size="lg">
-                        <Mail className="mr-2" size={20} />
-                        Kontakt oss for pris
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            {packages.map((pkg, index) => {
+              const Icon = pkg.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ 
+                    delay: index * 0.15,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  className={pkg.isPopular ? "lg:col-span-2" : ""}
+                >
+                  <motion.div
+                    whileHover={{ 
+                      y: -8,
+                      scale: pkg.isPopular ? 1.02 : 1.03,
+                      transition: { type: "spring", stiffness: 300 }
+                    }}
+                    className="h-full"
+                  >
+                    <Card className={`
+                      relative overflow-hidden border-2 ${pkg.color} 
+                      bg-gradient-to-br ${pkg.bgGradient}
+                      hover:shadow-2xl transition-all duration-500 h-full
+                      backdrop-blur-sm
+                      ${pkg.isPopular ? 'shadow-xl ring-2 ring-primary/20' : 'shadow-md'}
+                    `}>
+                      {/* Badge for Popular */}
+                      {pkg.isPopular && (
+                        <div className="absolute top-0 right-0 z-10">
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ delay: 0.5, type: "spring" }}
+                          >
+                            <Badge className="rounded-tl-none rounded-br-none bg-primary text-white px-4 py-1.5 text-sm font-semibold shadow-lg">
+                              ⭐ ANBEFALT
+                            </Badge>
+                          </motion.div>
+                        </div>
+                      )}
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent pointer-events-none" />
+                      
+                      <div className={`relative ${pkg.isPopular ? 'lg:flex lg:gap-8' : ''}`}>
+                        <CardHeader className={`pb-6 ${pkg.isPopular ? 'lg:w-1/3' : ''}`}>
+                          {/* Icon */}
+                          <motion.div 
+                            className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${pkg.bgGradient} flex items-center justify-center mb-4 shadow-lg border-2 ${pkg.color}`}
+                            whileHover={{ rotate: 360, scale: 1.1 }}
+                            transition={{ duration: 0.6 }}
+                          >
+                            <Icon className={`w-8 h-8 ${pkg.accentColor}`} />
+                          </motion.div>
+
+                          <CardTitle className={`text-3xl mb-3 ${pkg.accentColor}`}>
+                            {pkg.name}
+                          </CardTitle>
+                          <CardDescription className="text-base text-gray-700 leading-relaxed">
+                            {pkg.description}
+                          </CardDescription>
+
+                          {/* Divider */}
+                          <div className={`h-1 w-16 ${pkg.accentColor.replace('text-', 'bg-')} rounded-full mt-4`} />
+                        </CardHeader>
+
+                        <CardContent className={pkg.isPopular ? 'lg:w-2/3' : ''}>
+                          <FeatureList 
+                            features={pkg.features} 
+                            accentColor={pkg.accentColor}
+                            maxVisible={pkg.isPopular ? 8 : 6}
+                          />
+                          
+                          <Link href="/kontakt">
+                            <motion.div
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <Button 
+                                className={`w-full ${pkg.buttonColor} text-white shadow-lg hover:shadow-xl transition-all duration-300 group`}
+                                size="lg"
+                              >
+                                <Mail className="mr-2 group-hover:rotate-12 transition-transform" size={20} />
+                                Kontakt oss for pris
+                                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                              </Button>
+                            </motion.div>
+                          </Link>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
