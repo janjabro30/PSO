@@ -96,7 +96,16 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
           <p>&copy; {new Date().getFullYear()} PSO Regnskap AS. Alle rettigheter reservert.</p>
-          <p className="mt-2">Bygget med ❤️ av NORNIX</p>
+          <p className="mt-2">
+            <a 
+              href="https://nornex.no" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-bold text-white hover:text-primary transition-colors"
+            >
+              Utviklet av NORNEX
+            </a>
+          </p>
         </div>
       </div>
     </footer>

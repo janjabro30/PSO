@@ -13,6 +13,7 @@ export interface Service {
 export interface Article {
   id: string;
   title: string;
+  slug: string;
   excerpt: string;
   content: string;
   category: string;
@@ -60,6 +61,22 @@ export interface ContactSubmission {
   company: string;
   message: string;
   status: "read" | "unread";
+}
+
+export interface Office {
+  id: string;
+  name: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  phone: string;
+  email: string;
+  hours: string;
+  mapEmbed: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export interface Settings {
