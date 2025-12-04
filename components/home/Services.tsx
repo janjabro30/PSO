@@ -75,17 +75,17 @@ export default function Services() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent px-4">
             Våre Tjenester
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Vi tilbyr fire ulike pakker tilpasset bedrifter av alle størrelser
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -97,11 +97,11 @@ export default function Services() {
             >
               <Card className={`border-2 ${service.color} hover:shadow-2xl transition-all duration-300 h-full bg-gradient-to-br ${service.gradient} backdrop-blur-sm`}>
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold">{service.name}</CardTitle>
-                  <CardDescription className="text-base">{service.description}</CardDescription>
+                  <CardTitle className="text-xl sm:text-2xl font-bold">{service.name}</CardTitle>
+                  <CardDescription className="text-sm sm:text-base">{service.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                     {service.features.map((feature, idx) => (
                       <motion.li
                         key={idx}
@@ -111,13 +111,13 @@ export default function Services() {
                         transition={{ delay: index * 0.1 + idx * 0.05 }}
                         className="flex items-start gap-2"
                       >
-                        <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-xs sm:text-sm">{feature}</span>
                       </motion.li>
                     ))}
                   </ul>
-                  <Link href="/tjenester">
-                    <Button className="w-full hover:scale-105 transition-transform" variant="outline">
+                  <Link href="/tjenester" className="w-full">
+                    <Button className="w-full min-h-[44px] hover:scale-105 transition-transform" variant="outline">
                       Les mer
                     </Button>
                   </Link>

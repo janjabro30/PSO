@@ -44,39 +44,40 @@ export default function ArtiklerPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-20">
+      <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-6">Artikler og Nyheter</h1>
-          <p className="text-xl max-w-3xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">Artikler og Nyheter</h1>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto">
             Hold deg oppdatert med fagartikler, tips og nyheter om regnskap, skatt og økonomi
           </p>
         </div>
       </section>
 
       {/* Search and Filters */}
-      <section className="py-8 bg-white border-b">
+      <section className="py-6 sm:py-8 bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-3 sm:gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
               <Input
                 type="text"
                 placeholder="Søk i artikler..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-9 sm:pl-10 min-h-[44px]"
               />
             </div>
 
             {/* Category Filters */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 w-full md:w-auto justify-center">
               {categories.map((category) => (
                 <Button
                   key={category}
                   variant={selectedCategory === category ? "default" : "outline"}
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
+                  className="min-h-[44px]"
                 >
                   {category}
                 </Button>
@@ -98,7 +99,7 @@ export default function ArtiklerPage() {
               <p className="text-xl text-gray-600">Ingen artikler funnet</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredArticles.map((article) => (
                 <Link key={article.id} href={`/artikler/${article.slug}`}>
                   <Card className="hover:shadow-lg transition-shadow h-full cursor-pointer">
@@ -131,19 +132,19 @@ export default function ArtiklerPage() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-12 sm:py-16 bg-primary text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Meld deg på vårt nyhetsbrev</h2>
-          <p className="text-xl mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Meld deg på vårt nyhetsbrev</h2>
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8">
             Få de nyeste artiklene og viktige oppdateringer direkte i innboksen din
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
             <Input
               type="email"
               placeholder="Din e-postadresse"
-              className="bg-white text-dark"
+              className="bg-white text-dark min-h-[44px]"
             />
-            <Button className="bg-white text-primary hover:bg-gray-100">
+            <Button className="bg-white text-primary hover:bg-gray-100 min-h-[44px] whitespace-nowrap">
               Meld deg på
             </Button>
           </div>

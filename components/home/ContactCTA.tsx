@@ -19,7 +19,7 @@ export default function ContactCTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold text-white mb-4"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 px-4"
         >
           Klar til å komme i gang?
         </motion.h2>
@@ -28,7 +28,7 @@ export default function ContactCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+          className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto px-4"
         >
           Kontakt oss i dag for en uforpliktende samtale om hvordan vi kan hjelpe din bedrift
         </motion.p>
@@ -38,24 +38,24 @@ export default function ContactCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 px-4"
         >
           <motion.a
             href="mailto:post@psoregnskap.no"
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-colors"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-colors min-h-[44px]"
           >
-            <Mail className="w-5 h-5" />
-            <span className="font-medium">post@psoregnskap.no</span>
+            <Mail className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <span className="font-medium text-sm sm:text-base">post@psoregnskap.no</span>
           </motion.a>
           <span className="hidden sm:inline text-white/50">|</span>
           <motion.a
             href="tel:46911911"
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-colors"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white hover:bg-white/20 transition-colors min-h-[44px]"
           >
-            <Phone className="w-5 h-5" />
-            <span className="font-medium">46 91 19 11</span>
+            <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+            <span className="font-medium text-sm sm:text-base">46 91 19 11</span>
           </motion.a>
         </motion.div>
 
@@ -64,21 +64,21 @@ export default function ContactCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
         >
-          <Link href="/kontakt">
+          <Link href="/kontakt" className="w-full sm:w-auto">
             <Button 
               size="lg" 
-              className="bg-white text-primary hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="w-full sm:w-auto min-h-[44px] bg-white text-primary hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all hover:scale-105"
             >
               Kontakt oss <ArrowRight className="ml-2" size={20} />
             </Button>
           </Link>
-          <Link href="/om-oss">
+          <Link href="/om-oss" className="w-full sm:w-auto">
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-white text-white hover:bg-white hover:text-primary transition-all hover:scale-105 backdrop-blur-sm bg-white/10"
+              className="w-full sm:w-auto min-h-[44px] border-2 border-white text-white hover:bg-white hover:text-primary transition-all hover:scale-105 backdrop-blur-sm bg-white/10"
             >
               Om PSO Regnskap
             </Button>
