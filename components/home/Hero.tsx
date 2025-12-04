@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CheckCircle2, TrendingUp, Users, Award } from "lucide-react"
+import { ArrowRight, CheckCircle2, TrendingUp, Users, Award, Calendar, UserCheck, Headphones, Target, Star, ThumbsUp } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import type { Settings } from "@/lib/types"
@@ -172,19 +172,23 @@ export default function Hero() {
             { id: "2", icon: "TrendingUp", label: "År med erfaring", value: "20+", order: 2 },
             { id: "3", icon: "Award", label: "Sertifiserte rådgivere", value: "15+", order: 3 }
           ]).map((stat, index) => {
-            const iconMap = { Users, TrendingUp, Award };
+            // Map icon names to components with fallback to Users
+            const iconMap = { 
+              Users, TrendingUp, Award, Calendar, UserCheck, 
+              Headphones, Target, Star, ThumbsUp, CheckCircle2 
+            };
             const IconComponent = iconMap[stat.icon as keyof typeof iconMap] || Users;
             return (
-            <motion.div
-              key={stat.id || index}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20 hover:border-primary/50 transition-all duration-300"
-            >
-              <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2 sm:mb-3" />
-              <div className="text-2xl sm:text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-xs sm:text-sm text-gray-300">{stat.label}</div>
-            </motion.div>
-          );
+              <motion.div
+                key={stat.id || index}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20 hover:border-primary/50 transition-all duration-300"
+              >
+                <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2 sm:mb-3" />
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-300">{stat.label}</div>
+              </motion.div>
+            );
           })}
         </motion.div>
       </div>
