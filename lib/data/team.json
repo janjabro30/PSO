@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Lars Olsen",
+    "title": "Daglig leder / Autorisert regnskapsfører",
+    "office": "Spydeberg",
+    "phone": "+47 12 34 56 78",
+    "email": "lars@psoregnskap.no",
+    "photoUrl": "/images/team/lars.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Mari Hansen",
+    "title": "Regnskapsfører",
+    "office": "Spydeberg",
+    "phone": "+47 23 45 67 89",
+    "email": "mari@psoregnskap.no",
+    "photoUrl": "/images/team/mari.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Erik Johansen",
+    "title": "Konsulent",
+    "office": "Oslo",
+    "phone": "+47 34 56 78 90",
+    "email": "erik@psoregnskap.no",
+    "photoUrl": "/images/team/erik.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Ingrid Berg",
+    "title": "Regnskapsmedarbeider",
+    "office": "Oslo",
+    "phone": "+47 45 67 89 01",
+    "email": "ingrid@psoregnskap.no",
+    "photoUrl": "/images/team/ingrid.jpg"
+  }
+]

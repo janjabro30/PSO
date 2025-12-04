@@ -1,0 +1,62 @@
+[
+  {
+    "id": "total",
+    "name": "Total",
+    "description": "Komplett regnskapspakke",
+    "icon": "Package",
+    "color": "border-primary",
+    "features": [
+      "Komplett regnskap",
+      "Årsregnskap og rapportering",
+      "Budsjett og prognoser",
+      "Skatteplanlegging",
+      "Løpende rådgivning"
+    ],
+    "price": "Fra 5 000 kr/mnd"
+  },
+  {
+    "id": "basic",
+    "name": "Basic",
+    "description": "Enkel bokføring",
+    "icon": "FileText",
+    "color": "border-blue-500",
+    "features": [
+      "Enkel bokføring",
+      "Løpende rapportering",
+      "Mva-rapporter",
+      "E-post support",
+      "Årsoppgjør"
+    ],
+    "price": "Fra 2 500 kr/mnd"
+  },
+  {
+    "id": "workshop",
+    "name": "Workshop",
+    "description": "Strategisk rådgivning",
+    "icon": "Users",
+    "color": "border-accent",
+    "features": [
+      "Strategiske workshops",
+      "Forretningsutvkling",
+      "Økonomisk analyse",
+      "Vekstplanlegging",
+      "Dedikert konsulent"
+    ],
+    "price": "Fra 8 000 kr/mnd"
+  },
+  {
+    "id": "pluss",
+    "name": "Pluss",
+    "description": "Utvidet tjeneste",
+    "icon": "Star",
+    "color": "border-purple-500",
+    "features": [
+      "Fakturering",
+      "Personlig rådgiver",
+      "Prioritert support",
+      "Månedlige møter",
+      "Tilpassede rapporter"
+    ],
+    "price": "Fra 6 500 kr/mnd"
+  }
+]
