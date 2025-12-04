@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Spydeberg",
+    "address": "Wilses vei 3",
+    "postalCode": "1820",
+    "city": "Spydeberg",
+    "phone": "46 91 19 11",
+    "email": "post@psoregnskap.no",
+    "hours": "Man-Fre: 08:00-16:00",
+    "mapEmbed": "https://www.openstreetmap.org/export/embed.html?bbox=11.0646%2C59.5915%2C11.0866%2C59.6015&layer=mapnik&marker=59.5965%2C11.0756",
+    "coordinates": {
+      "lat": 59.5965,
+      "lng": 11.0756
+    }
+  },
+  {
+    "id": "2",
+    "name": "Oslo",
+    "address": "Brynsveien 18",
+    "postalCode": "0667",
+    "city": "Oslo",
+    "phone": "46 91 19 11",
+    "email": "post@psoregnskap.no",
+    "hours": "Man-Fre: 08:00-16:00",
+    "mapEmbed": "https://www.openstreetmap.org/export/embed.html?bbox=10.7950%2C59.9270%2C10.8170%2C59.9370&layer=mapnik&marker=59.9320%2C10.8060",
+    "coordinates": {
+      "lat": 59.9320,
+      "lng": 10.8060
+    }
+  }
+]

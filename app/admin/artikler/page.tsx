@@ -32,6 +32,7 @@ export default function ArticlesPage() {
     setEditingArticle({
       id: "",
       title: "",
+      slug: "",
       excerpt: "",
       content: "",
       category: "",
@@ -159,9 +160,28 @@ export default function ArticlesPage() {
                 <Input
                   id="title"
                   value={editingArticle.title}
+                  onChange={(e) => {
+                    const title = e.target.value
+                    const slug = title
+                      .toLowerCase()
+                      .replace(/[æ]/g, 'ae')
+                      .replace(/[ø]/g, 'o')
+                      .replace(/[å]/g, 'a')
+                      .replace(/[^a-z0-9]+/g, '-')
+                      .replace(/^-+|-+$/g, '')
+                    setEditingArticle({ ...editingArticle, title, slug })
+                  }}
+                />
+              </div>
+              <div>
+                <Label htmlFor="slug">Slug (URL-vennlig)</Label>
+                <Input
+                  id="slug"
+                  value={editingArticle.slug}
                   onChange={(e) =>
-                    setEditingArticle({ ...editingArticle, title: e.target.value })
+                    setEditingArticle({ ...editingArticle, slug: e.target.value })
                   }
+                  placeholder="artikkel-url-slug"
                 />
               </div>
               <div>
