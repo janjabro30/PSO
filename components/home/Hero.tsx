@@ -167,21 +167,25 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4"
         >
-          {[
-            { icon: Users, label: "Fornøyde kunder", value: "500+" },
-            { icon: TrendingUp, label: "År med erfaring", value: "20+" },
-            { icon: Award, label: "Sertifiserte rådgivere", value: "15+" }
-          ].map((stat, index) => (
+          {(settings?.homepage?.stats?.slice(0, 3) || [
+            { id: "1", icon: "Users", label: "Fornøyde kunder", value: "500+", order: 1 },
+            { id: "2", icon: "TrendingUp", label: "År med erfaring", value: "20+", order: 2 },
+            { id: "3", icon: "Award", label: "Sertifiserte rådgivere", value: "15+", order: 3 }
+          ]).map((stat, index) => {
+            const iconMap = { Users, TrendingUp, Award };
+            const IconComponent = iconMap[stat.icon as keyof typeof iconMap] || Users;
+            return (
             <motion.div
-              key={index}
+              key={stat.id || index}
               whileHover={{ scale: 1.05, y: -5 }}
               className="bg-white/10 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-white/20 hover:border-primary/50 transition-all duration-300"
             >
-              <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2 sm:mb-3" />
+              <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2 sm:mb-3" />
               <div className="text-2xl sm:text-3xl font-bold text-white mb-1">{stat.value}</div>
               <div className="text-xs sm:text-sm text-gray-300">{stat.label}</div>
             </motion.div>
-          ))}
+          );
+          })}
         </motion.div>
       </div>
 
