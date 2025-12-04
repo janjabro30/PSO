@@ -1,9 +1,23 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import * as Icons from "lucide-react"
+import { Users, Calendar, UserCheck, Headphones, TrendingUp, Award, Target, CheckCircle, Star, ThumbsUp } from "lucide-react"
 import { motion } from "framer-motion"
 import type { Settings, HomepageStat } from "@/lib/types"
+
+// Icon mapping for type safety
+const iconMap = {
+  Users,
+  Calendar,
+  UserCheck,
+  Headphones,
+  TrendingUp,
+  Award,
+  Target,
+  CheckCircle,
+  Star,
+  ThumbsUp,
+} as const;
 
 export default function Stats() {
   const [stats, setStats] = useState<HomepageStat[]>([]);
@@ -29,9 +43,8 @@ export default function Stats() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${stats.length === 4 ? 'lg:grid-cols-4' : stats.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'}`}>
           {stats.map((stat, index) => {
-            // Dynamically get the icon component
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const IconComponent = (Icons as any)[stat.icon] || Icons.Users;
+            // Dynamically get the icon component from type-safe map
+            const IconComponent = iconMap[stat.icon as keyof typeof iconMap] || Users;
             
             return (
               <motion.div

@@ -120,17 +120,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
         >
-          {hero.title.split('\n').map((line, i) => (
-            <span key={i}>
-              <span className={i === 0 
-                ? "bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent drop-shadow-lg"
-                : "bg-gradient-to-r from-primary via-teal-400 to-primary bg-clip-text text-transparent animate-gradient"
-              }>
-                {line}
-              </span>
-              {i === 0 && <br />}
-            </span>
-          ))}
+          <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent drop-shadow-lg">
+            {hero.title}
+          </span>
         </motion.h1>
 
         <motion.p

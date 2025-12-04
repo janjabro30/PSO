@@ -16,6 +16,7 @@ const packages = [
     color: "border-slate-300",
     bgGradient: "from-slate-50 to-white",
     accentColor: "text-slate-600",
+    iconBgColor: "bg-slate-600/10",
     buttonColor: "bg-slate-600 hover:bg-slate-700",
     features: [
       "Enkel bokføring",
@@ -36,6 +37,7 @@ const packages = [
     color: "border-teal-300",
     bgGradient: "from-teal-50 to-white",
     accentColor: "text-teal-600",
+    iconBgColor: "bg-teal-600/10",
     buttonColor: "bg-teal-600 hover:bg-teal-700",
     features: [
       "Alt i Basic pakken",
@@ -58,6 +60,7 @@ const packages = [
     color: "border-primary",
     bgGradient: "from-primary/10 to-teal-50/50",
     accentColor: "text-primary",
+    iconBgColor: "bg-primary/10",
     buttonColor: "bg-primary hover:bg-primary/90",
     features: [
       "Alt i Pluss pakken",
@@ -80,6 +83,7 @@ const packages = [
     color: "border-orange-300",
     bgGradient: "from-orange-50 to-white",
     accentColor: "text-orange-600",
+    iconBgColor: "bg-orange-600/10",
     buttonColor: "bg-orange-600 hover:bg-orange-700",
     features: [
       "Strategiske workshops",
@@ -100,10 +104,11 @@ const packages = [
 interface FeatureListProps {
   features: string[];
   accentColor: string;
+  bgColor: string;
   maxVisible?: number;
 }
 
-function FeatureList({ features, accentColor, maxVisible = 6 }: FeatureListProps) {
+function FeatureList({ features, accentColor, bgColor, maxVisible = 6 }: FeatureListProps) {
   const [showAll, setShowAll] = useState(false);
   const displayedFeatures = showAll ? features : features.slice(0, maxVisible);
   const hasMore = features.length > maxVisible;
@@ -122,7 +127,7 @@ function FeatureList({ features, accentColor, maxVisible = 6 }: FeatureListProps
               className="flex items-start gap-3 group"
             >
               <motion.div
-                className={`w-5 h-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0 ${accentColor.replace('text-', 'bg-')}/10`}
+                className={`w-5 h-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0 ${bgColor}`}
                 whileHover={{ scale: 1.2, rotate: 360 }}
                 transition={{ duration: 0.3 }}
               >
@@ -255,6 +260,7 @@ export default function TjenesterPage() {
                           <FeatureList 
                             features={pkg.features} 
                             accentColor={pkg.accentColor}
+                            bgColor={pkg.iconBgColor}
                             maxVisible={pkg.isPopular ? 8 : 6}
                           />
                           

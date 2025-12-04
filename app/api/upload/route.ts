@@ -72,16 +72,26 @@ export async function DELETE(request: Request) {
       );
     }
 
-    // Security: ensure filename doesn't contain path traversal
-    if (filename.includes("..") || filename.includes("/")) {
+    // Security: whitelist validation - only allow alphanumeric, dots, hyphens, and underscores
+    const safeFilenamePattern = /^[a-zA-Z0-9._-]+$/;
+    if (!safeFilenamePattern.test(filename)) {
       return NextResponse.json(
         { error: "Invalid filename" },
         { status: 400 }
       );
     }
 
-    const filepath = path.join(process.cwd(), "public/uploads", filename);
+    const uploadsDir = path.join(process.cwd(), "public/uploads");
+    const filepath = path.join(uploadsDir, filename);
     
+    // Additional security: ensure the resolved path is still within uploads directory
+    if (!filepath.startsWith(uploadsDir)) {
+      return NextResponse.json(
+        { error: "Invalid file path" },
+        { status: 400 }
+      );
+    }
+
     // Delete file using fs/promises
     const { unlink } = await import("fs/promises");
     await unlink(filepath);
