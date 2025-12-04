@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, ArrowLeft, CheckCircle2, Users, Briefcase, Clock, Target } from "lucide-react"
@@ -88,6 +88,7 @@ export default function Quiz() {
   const [answers, setAnswers] = useState<number[]>([])
   const [showResult, setShowResult] = useState(false)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
 
   const handleAnswer = (answerIndex: number) => {
     setSelectedAnswer(answerIndex)
@@ -108,6 +109,13 @@ export default function Quiz() {
       setShowResult(true)
     }
   }
+
+  // Auto-scroll to results when they are displayed
+  useEffect(() => {
+    if (showResult && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showResult])
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
@@ -145,7 +153,7 @@ export default function Quiz() {
     const pkg = packages[recommended]
 
     return (
-      <section id="quiz" className="py-16 bg-gradient-to-br from-gray-50 to-white">
+      <section id="quiz" className="py-16 bg-gradient-to-br from-gray-50 to-white" ref={resultsRef}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
