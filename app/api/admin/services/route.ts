@@ -3,6 +3,9 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Service } from "@/lib/types";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const dataPath = path.join(process.cwd(), "lib/data/services.json");
 
 export async function GET() {

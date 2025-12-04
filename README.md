@@ -1,5 +1,29 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## CMS Data Persistence
+
+This application includes a content management system (CMS) that stores data in JSON files located in the `lib/data/` directory. When deploying with Docker, you should mount a volume for this directory to persist CMS data across container restarts.
+
+### Docker Volume Mounting
+
+To ensure your CMS data persists when running in Docker, mount a volume to `/app/lib/data/`:
+
+```bash
+docker run -v /path/to/your/data:/app/lib/data/ your-image-name
+```
+
+Or in your `docker-compose.yml`:
+
+```yaml
+services:
+  app:
+    image: your-image-name
+    volumes:
+      - ./data:/app/lib/data/
+```
+
+This ensures that articles, team members, settings, and other CMS content are preserved when containers are recreated or updated.
+
 ## Getting Started
 
 First, run the development server:
