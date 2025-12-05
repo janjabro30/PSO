@@ -6,6 +6,11 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "PSO Regnskap AS - Profesjonell Regnskapshjelp",
   description: "PSO Regnskap AS tilbyr skreddersydd regnskapshjelp for norske bedrifter. Kontakt oss for profesjonell rådgivning.",
+  icons: {
+    icon: '/images/pso-logo.svg',
+    shortcut: '/images/pso-logo.svg',
+    apple: '/images/pso-logo.svg',
+  },
 };
 
 export default function RootLayout({
